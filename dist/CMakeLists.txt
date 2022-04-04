@@ -45,10 +45,16 @@ if(WIN32)
 		")
 	endif()
 	if (CUTTER_PACKAGE_RZ_LIBYARA AND CUTTER_ENABLE_DEPENDENCY_DOWNLOADS)
+		set (YARA_PLUGIN_OPTIONS "
+			\"-DRIZIN_INSTALL_PLUGDIR=\${CMAKE_INSTALL_PREFIX}/${RIZIN_INSTALL_PLUGDIR}\"
+			-DCUTTER_INSTALL_PLUGDIR=plugins/native")
 		install(CODE "
 			set(ENV{RZ_PREFIX} \"\${CMAKE_INSTALL_PREFIX}\")
 			set(ENV{PATH} \"\${CMAKE_INSTALL_PREFIX};\$ENV{PATH}\")
-			execute_process(COMMAND powershell \"${CMAKE_CURRENT_SOURCE_DIR}/bundle_rz_libyara.ps1\" \"\${CMAKE_INSTALL_PREFIX}\"
+			execute_process(COMMAND powershell 
+							\"${CMAKE_CURRENT_SOURCE_DIR}/bundle_rz_libyara.ps1\"
+							\"\${CMAKE_INSTALL_PREFIX}\"
+							\"\${YARA_PLUGIN_OPTIONS}\"
 							WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 							RESULT_VARIABLE SCRIPT_RESULT)
 			if (SCRIPT_RESULT)
@@ -127,11 +133,7 @@ if(APPLE)
 		")
 	endif()
 	if (CUTTER_PACKAGE_RZ_LIBYARA AND CUTTER_ENABLE_DEPENDENCY_DOWNLOADS)
-		if (WIN32)
-			set (YARA_PLUGIN_OPTIONS "
-				\"-DRIZIN_INSTALL_PLUGDIR=\${CMAKE_INSTALL_PREFIX}/${RIZIN_INSTALL_PLUGDIR}\"
-				-DCUTTER_INSTALL_PLUGDIR=plugins/native")
-		elseif (APPLE)
+		if (APPLE)
 			set (YARA_PLUGIN_OPTIONS "
 				\"-DRIZIN_INSTALL_PLUGDIR=\${CMAKE_INSTALL_PREFIX}/${RIZIN_INSTALL_PLUGDIR}\"
 				-DCUTTER_INSTALL_PLUGDIR=plugins/native")
@@ -139,7 +141,11 @@ if(APPLE)
 			set (YARA_PLUGIN_OPTIONS "")
 		endif()
 		install(CODE "
-			execute_process(COMMAND \"${CMAKE_CURRENT_SOURCE_DIR}/../scripts/rz-libyara.sh\" --pkg-config-path=\${CMAKE_INSTALL_PREFIX}/lib/pkgconfig --prefix=\${CMAKE_INSTALL_PREFIX}
+			execute_process(COMMAND
+							\"${CMAKE_CURRENT_SOURCE_DIR}/../scripts/rz-libyara.sh\"
+							--pkg-config-path=\${CMAKE_INSTALL_PREFIX}/lib/pkgconfig
+							--prefix=\${CMAKE_INSTALL_PREFIX}
+							\${YARA_PLUGIN_OPTIONS}
 							WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 							RESULT_VARIABLE SCRIPT_RESULT)
 			if (SCRIPT_RESULT)

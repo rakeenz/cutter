@@ -1,4 +1,5 @@
 $dist = $args[0]
+$cmake_opts = $args[1]
 $python = Split-Path((Get-Command python.exe).Path)
 
 if (-not (Test-Path -Path 'rz_libyara' -PathType Container)) {
@@ -16,3 +17,10 @@ if(![System.IO.File]::Exists($pathdll)) {
     throw (New-Object System.IO.FileNotFoundException("File not found: $pathdll", $pathdll))
 }
 Remove-Item -Recurse -Force $dist/lib/plugins/rz_yara.lib
+
+cd cutter-plugin
+mkdir build
+cd build
+cmake -G Ninja $cmake_opts ..
+ninja
+ninja install
