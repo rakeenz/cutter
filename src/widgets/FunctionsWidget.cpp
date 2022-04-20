@@ -490,8 +490,8 @@ FunctionsWidget::FunctionsWidget(MainWindow *main)
     connect(Config(), &Configuration::colorsUpdated, this, &FunctionsWidget::setTooltipStylesheet);
 
     QFontInfo font_info = ui->treeView->fontInfo();
-    QFont default_font = QFont(font_info.family(), font_info.pointSize());
-    QFont highlight_font = QFont(font_info.family(), font_info.pointSize(), QFont::Bold);
+    QFont default_font = QFont(font_info.family(), Config()->getFont().pointSize());
+    QFont highlight_font = QFont(font_info.family(), Config()->getFont().pointSize(), QFont::Bold);
 
     functionModel = new FunctionModel(&functions, &importAddresses, &mainAdress, false,
                                       default_font, highlight_font, this);
@@ -540,6 +540,8 @@ FunctionsWidget::FunctionsWidget(MainWindow *main)
     connect(Core(), &CutterCore::refreshAll, this, &FunctionsWidget::refreshTree);
     connect(Core(), &CutterCore::commentsChanged, this,
             [this]() { qhelpers::emitColumnChanged(functionModel, FunctionModel::CommentColumn); });
+    connect(Config(), &Configuration::fontsUpdated, this, &FunctionsWidget::fontsUpdatedSlot);
+
 }
 
 FunctionsWidget::~FunctionsWidget() {}
@@ -569,6 +571,11 @@ void FunctionsWidget::refreshTree()
 
                 // resize offset and size columns
                 qhelpers::adjustColumns(ui->treeView, 3, 0);
+
+                QFontInfo font_info = ui->treeView->fontInfo();
+                functionModel->defaultFont = QFont(font_info.family(), Config()->getFont().pointSize());
+                functionModel->highlightFont = QFont(font_info.family(), Config()->getFont().pointSize(), QFont::Bold);
+
             });
     Core()->getAsyncTaskManager()->start(task);
 }
@@ -642,4 +649,11 @@ void FunctionsWidget::onActionVerticalToggled(bool enable)
 void FunctionsWidget::setTooltipStylesheet()
 {
     setStyleSheet(DisassemblyPreview::getToolTipStyleSheet());
+}
+
+void FunctionsWidget::fontsUpdatedSlot()
+{
+
+    refreshTree();
+
 }
