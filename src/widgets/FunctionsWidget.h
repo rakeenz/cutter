@@ -83,8 +83,6 @@ public:
 
     RVA address(const QModelIndex &index) const override;
     QString name(const QModelIndex &index) const override;
-
-
 private slots:
     void seekChanged(RVA addr);
     void functionRenamed(const RVA offset, const QString &new_name);
@@ -110,8 +108,6 @@ public:
     explicit FunctionsWidget(MainWindow *main);
     ~FunctionsWidget() override;
     void changeSizePolicy(QSizePolicy::Policy hor, QSizePolicy::Policy ver);
-public slots:
-    void fontsUpdatedSlot();
 
 private slots:
     void onActionFunctionsRenameTriggered();
