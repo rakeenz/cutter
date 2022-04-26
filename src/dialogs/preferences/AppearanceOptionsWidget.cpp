@@ -9,6 +9,7 @@
 #include <QSignalBlocker>
 #include <QStandardPaths>
 #include <QtSvg/QSvgRenderer>
+#include <QChar>
 
 #include <QComboBox>
 #include <QtWidgets/QSpinBox>
@@ -110,6 +111,25 @@ void AppearanceOptionsWidget::on_fontSelectionButton_clicked()
                                          QFontDialog::DontUseNativeDialog);
     if (ok) {
         Config()->setFont(newFont);
+    }
+}
+
+void AppearanceOptionsWidget::on_fontSelectionButton2_clicked()
+{
+
+  int value = 12;
+  int min = 8;
+  int max = 48;
+  int step = 1;
+  bool ok;
+  Qt::WindowFlags flags = Qt::WindowFlags();
+
+    int num = QInputDialog::getInt(this, QString(), QString(),value,min,max,step,&ok, flags);
+    QString font = QString::number(num);
+
+
+    if (ok) {
+        qApp->setStyleSheet("QLabel{font-size:"+font+"px}QLineEdit{font-size:"+font+"px}QTabBar{font-size:"+font+"px}QHeaderView{font-size:"+font+"px}QTreeView{font-size:"+font+"px}");
     }
 }
 
