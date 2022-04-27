@@ -30,7 +30,7 @@ private slots:
     void updateThemeFromConfig(bool interfaceThemeChanged = true);
 
     void on_fontSelectionButton_clicked();
-    void on_fontSelectionButton2_clicked();
+    void on_textSizeSelectionButton_clicked();
     void onFontZoomBoxValueChanged(int zoom);
     void on_themeComboBox_currentIndexChanged(int index);
     void on_copyButton_clicked();

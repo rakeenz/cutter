@@ -295,30 +295,18 @@
    </item>
 
 
-   <item row="0" column="0">
-    <widget class="QLabel" name="fontLabel_">
-     <property name="text">
-      <string>Font:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <layout class="QHBoxLayout" name="fontSelectionLayout_">
+
+   <item row="4" column="1">
+    <layout class="QHBoxLayout" name="textSizeSelectionLayout">
+      <item row="4" column="0">
+       <widget class="QLabel" name="textLabel">
+        <property name="text">
+         <string>(Experimental) Text Size:</string>
+        </property>
+       </widget>
+      </item>
      <item>
-      <widget class="QLabel" name="fontSelectionLabel_">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>1</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string notr="true"/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="fontSelectionButton2">
+      <widget class="QPushButton" name="textSizeSelectionButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -326,7 +314,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Select font</string>
+        <string>Select text size</string>
        </property>
       </widget>
      </item>

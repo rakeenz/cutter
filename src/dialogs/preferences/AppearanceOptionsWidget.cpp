@@ -114,7 +114,7 @@ void AppearanceOptionsWidget::on_fontSelectionButton_clicked()
     }
 }
 
-void AppearanceOptionsWidget::on_fontSelectionButton2_clicked()
+void AppearanceOptionsWidget::on_textSizeSelectionButton_clicked()
 {
 
   int value = 12;
@@ -129,7 +129,10 @@ void AppearanceOptionsWidget::on_fontSelectionButton2_clicked()
 
 
     if (ok) {
-        qApp->setStyleSheet("QLabel{font-size:"+font+"px}QLineEdit{font-size:"+font+"px}QTabBar{font-size:"+font+"px}QHeaderView{font-size:"+font+"px}QTreeView{font-size:"+font+"px}");
+        qApp->setStyleSheet("QLabel{font-size:"+font+"px}QLineEdit{font-size:"+font+
+        "px}QTabBar{font-size:"+font+"px}QHeaderView{font-size:"+font+
+        "px}QTreeView{font-size:"+font+"px}QComboBox{font-size:"+font+"px}QAbstractButton{font-size:"+font+
+        "px}");
     }
 }
 
